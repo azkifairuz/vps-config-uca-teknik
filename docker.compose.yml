@@ -48,6 +48,9 @@ services:
       - ./nginx/certbot/www:/var/www/certbot
 
   mentara:
+    build:
+      context: ./mentara
+      dockerfile: Dockerfile
     image: mentara-app
     container_name: mentara
     restart: always
@@ -61,9 +64,14 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=root
     ports:
-      - "8000:8000"
+      - "8000:9000"
+    volumes:
+      - ./mentara:/var/www
 
   dentalcare:
+    build:
+      context: ./dentalcare
+      dockerfile: Dockerfile
     image: dental-app
     container_name: dentalcare
     restart: always
@@ -77,9 +85,14 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=root
     ports:
-      - "8001:8001"
+      - "8001:9000"
+    volumes:
+      - ./dentalcare:/var/www
 
   diagnosa-sapi:
+    build:
+      context: ./diagnosa-sapi
+      dockerfile: Dockerfile
     image: diagnosa-sapi-app
     container_name: diagnosa-sapi
     restart: always
@@ -93,7 +106,9 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=root
     ports:
-      - "8002:8002"
+      - "8002:9000"
+    volumes:
+      - ./diagnosa-sapi:/var/www
 
 volumes:
   mysql_data:
