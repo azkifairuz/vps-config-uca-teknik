@@ -1,0 +1,30 @@
+{
+    "name": "Mentara",
+    "short_name": "Mentara",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#007bff",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "kepala.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "kepala.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "kepala.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "kepala.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        }
+    ]
+}

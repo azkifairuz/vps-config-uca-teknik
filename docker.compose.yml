@@ -1,0 +1,99 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: init
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+    depends_on:
+      - mentara
+      - dentalcare
+      - diagnosa-sapi
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    entrypoint: /bin/sh -c 'trap exit TERM; while :; do sleep 6h & wait $${!}; certbot renew; done;'
+    volumes:
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+
+  mentara:
+    image: mentara-app
+    container_name: mentara
+    restart: always
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=mentaradb
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    ports:
+      - "8000:8000"
+
+  dentalcare:
+    image: dental-app
+    container_name: dentalcare
+    restart: always
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=dentalcaredb
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    ports:
+      - "8001:8001"
+
+  diagnosa-sapi:
+    image: diagnosa-sapi-app
+    container_name: diagnosa-sapi
+    restart: always
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=sapidb
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    ports:
+      - "8002:8002"
+
+volumes:
+  mysql_data:

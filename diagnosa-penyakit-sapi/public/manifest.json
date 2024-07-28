@@ -1,0 +1,20 @@
+{
+    "name": "diagnosa sapi",
+    "short_name": "diagnosa sapi",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#007bff",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/images/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/icons/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ]
+}

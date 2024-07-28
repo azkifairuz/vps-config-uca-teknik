@@ -1,0 +1,30 @@
+{
+    "name": "Dental Care",
+    "short_name": "DentalCare",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#007bff",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "gigi.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "gigi.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "gigi.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "gigi.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        }
+    ]
+}
